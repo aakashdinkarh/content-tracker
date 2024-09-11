@@ -1,3 +1,25 @@
+document.addEventListener('DOMContentLoaded', () => {
+	chrome.storage.local.get('targetText', (result) => {
+	  const targetText = result.targetText;
+	  const targetInput = document.getElementById('targetText');
+	  const startButton = document.getElementById('startTracking');
+	  const stopButton = document.getElementById('stopTracking');
+  
+	  if (targetText) {
+		// If there is already a target text, set the input field as read-only and show stop button
+		targetInput.value = targetText;
+		targetInput.readOnly = true;
+		startButton.style.display = 'none'; // Hide start button
+		stopButton.style.display = 'block'; // Show stop button
+	  } else {
+		// If no target text, show the start button
+		targetInput.readOnly = false;
+		startButton.style.display = 'block';
+		stopButton.style.display = 'none';
+	  }
+	});
+  });
+
 document.getElementById('trackerForm').addEventListener('submit', (event) => {
 	event.preventDefault();
 
@@ -7,49 +29,81 @@ document.getElementById('trackerForm').addEventListener('submit', (event) => {
 	chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
 		chrome.scripting.executeScript({
 			target: { tabId: tabs[0].id },
-			func: startTracking,
+			func: startObserving,
 			args: [targetText],
 		});
 	});
 
-	// Show confirmation message
-	const confirmationMessage = document.getElementById('confirmationMessage');
-	confirmationMessage.style.display = 'block';
+	// Store the target text
+	chrome.storage.local.set({ targetText: targetText }, () => {
+		const confirmationMessage = document.getElementById('confirmationMessage');
+		confirmationMessage.textContent = `Tracking started for: "${targetText}"`;
+		confirmationMessage.style.display = 'block';
 
-	// Close the popup after a short delay to let the user see the message
-	setTimeout(() => {
-		window.close();
-	}, 2000); // Adjust the delay as needed
+		setTimeout(() => {
+			window.close();
+		}, 2000);
+	});
 });
 
-let observer; // Global variable to keep track of the MutationObserver
+document.getElementById('stopTracking').addEventListener('click', () => {
+	chrome.storage.local.remove('targetText', () => {
+		chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+			chrome.scripting.executeScript({
+				target: { tabId: tabs[0].id },
+				func: () => {
+					if (window.contentObserver) {
+						window.contentObserver.disconnect();
+						window.contentObserver = null; // Clear observer reference
+					}
+				},
+			});
+		});
+		document.getElementById('targetText').value = '';
+		document.getElementById('targetText').readOnly = false;
+		document.getElementById('startTracking').style.display = 'block';
+		document.getElementById('stopTracking').style.display = 'none';
+	});
+});
+
+
+// ----- content script ------
+
 
 // Function to be called in the context of client from popup action button
 function startObserving(targetText) {
-	if (observer) {
-		// If there's an existing observer, disconnect it
-		observer.disconnect();
-	}
+	window.contentObserver = null;
 
-	// Create a new MutationObserver
-	observer = new MutationObserver(() => {
-		if (document.body.innerText.includes(targetText)) {
-			// Send message to background script to show a notification
-			chrome.runtime.sendMessage({ action: 'notify', message: targetText });
-
-			// Disconnect the observer after sending the notification
-			observer.disconnect();
+	function stopObserving() {
+		if (window.contentObserver) {
+			window.contentObserver.disconnect();
+			window.contentObserver = null; // Clear observer reference
 		}
-	});
-
-	observer.observe(document.body, {
-		childList: true,
-		subtree: true,
-	});
-
-	// Initial check in case content is already present
-	if (document.body.innerText.includes(targetText)) {
-		chrome.runtime.sendMessage({ action: 'notify', message: targetText });
-		observer.disconnect(); // Disconnect immediately if content is already present
 	}
+
+	(() => {
+		stopObserving();
+	
+		// Create a new MutationObserver
+		window.contentObserver = new MutationObserver(() => {
+			if (document.body.innerText.includes(targetText)) {
+				// Send message to background script to show a notification
+				chrome.runtime.sendMessage({ action: 'notify', message: targetText });
+	
+				// Disconnect the observer after sending the notification
+				stopObserving();
+			}
+		});
+	
+		window.contentObserver.observe(document.body, {
+			childList: true,
+			subtree: true,
+		});
+	
+		// Initial check in case content is already present
+		if (document.body.innerText.includes(targetText)) {
+			chrome.runtime.sendMessage({ action: 'notify', message: targetText });
+			stopObserving(); // Disconnect immediately if content is already present
+		}
+	})();
 }

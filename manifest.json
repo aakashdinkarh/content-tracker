@@ -2,7 +2,7 @@
 	"manifest_version": 3,
 	"name": "Dynamic Content Tracker",
 	"version": "1.0",
-	"permissions": ["tabs", "notifications", "storage", "scripting"],
+	"permissions": ["tabs", "notifications", "storage", "scripting", "webNavigation"],
 	"background": {
 		"service_worker": "background.js"
 	},

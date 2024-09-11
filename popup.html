@@ -44,6 +44,11 @@
       box-sizing: border-box;
     }
 
+    input[readonly] {
+      background-color: #e9ecef;
+      cursor: not-allowed;
+    }
+
     button {
       background-color: #4CAF50;
       color: white;
@@ -62,13 +67,22 @@
 
     #confirmationMessage {
       display: none;
-      background-color: #2196F3; /* Different color for success message */
+      background-color: #2196F3; /* Blue color for success message */
       color: white;
       padding: 10px;
       border-radius: 5px;
       text-align: center;
       margin-top: 15px;
       font-weight: bold;
+    }
+
+    #stopTracking {
+      background-color: #f44336; /* Red color for stop button */
+      display: none; /* Hidden by default */
+    }
+
+    #stopTracking:hover {
+      background-color: #c62828;
     }
   </style>
 </head>
@@ -79,8 +93,9 @@
       <label for="targetText">Track content:</label>
       <input id="targetText" type="text" placeholder="Enter content to track">
       <button type="submit" id="startTracking">Start Tracking</button>
+      <button type="button" id="stopTracking">Stop Tracking</button>
     </div>
-    <div id="confirmationMessage">Tracking started!</div>
+    <div id="confirmationMessage"></div>
   </form>
 
   <script src="popup.js"></script>
