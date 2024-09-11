@@ -66,10 +66,6 @@ document.getElementById('stopTracking').addEventListener('click', () => {
 	});
 });
 
-
-// ----- content script ------
-
-
 // Function to be called in the context of client from popup action button
 function startObserving(targetText) {
 	window.contentObserver = null;
@@ -78,6 +74,7 @@ function startObserving(targetText) {
 		if (window.contentObserver) {
 			window.contentObserver.disconnect();
 			window.contentObserver = null; // Clear observer reference
+			chrome.storage.local.remove('targetText');
 		}
 	}
 
@@ -88,6 +85,9 @@ function startObserving(targetText) {
 		window.contentObserver = new MutationObserver(() => {
 			if (document.body.innerText.includes(targetText)) {
 				// Send message to background script to show a notification
+				const audio = new Audio(chrome.runtime.getURL('long-drop.wav'));
+				audio.play();
+			
 				chrome.runtime.sendMessage({ action: 'notify', message: targetText });
 	
 				// Disconnect the observer after sending the notification

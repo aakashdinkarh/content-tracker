@@ -1,6 +1,6 @@
 {
 	"manifest_version": 3,
-	"name": "Dynamic Content Tracker",
+	"name": "Content Tracker",
 	"version": "1.0",
 	"permissions": ["tabs", "notifications", "storage", "scripting", "webNavigation"],
 	"background": {
@@ -9,5 +9,11 @@
 	"action": {
 		"default_popup": "popup.html"
 	},
+	"web_accessible_resources": [
+		{
+			"resources": ["long-drop.wav"],
+			"matches": ["http://*/*", "https://*/*"]
+		}
+	],
 	"host_permissions": ["http://*/*", "https://*/*"]
 }
