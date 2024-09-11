@@ -85,10 +85,10 @@ function startObserving(targetText) {
 		window.contentObserver = new MutationObserver(() => {
 			if (document.body.innerText.includes(targetText)) {
 				// Send message to background script to show a notification
+				chrome.runtime.sendMessage({ action: 'notify', message: targetText });
+				
 				const audio = new Audio(chrome.runtime.getURL('long-drop.wav'));
 				audio.play();
-			
-				chrome.runtime.sendMessage({ action: 'notify', message: targetText });
 	
 				// Disconnect the observer after sending the notification
 				stopObserving();
@@ -103,6 +103,8 @@ function startObserving(targetText) {
 		// Initial check in case content is already present
 		if (document.body.innerText.includes(targetText)) {
 			chrome.runtime.sendMessage({ action: 'notify', message: targetText });
+			const audio = new Audio(chrome.runtime.getURL('long-drop.wav'));
+			audio.play();
 			stopObserving(); // Disconnect immediately if content is already present
 		}
 	})();
