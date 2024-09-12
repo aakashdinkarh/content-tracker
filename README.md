@@ -1,4 +1,4 @@
-# **Content Tracker Chrome Extension**
+# **Content Tracker [Chrome Extension**]
 
 A Chrome extension that tracks specified content on a webpage in real-time and sends a browser notification when the content appears. The extension also allows the user to focus on the relevant tab by clicking the notification. This extension is ideal for monitoring dynamic web pages where content updates frequently.
 
@@ -10,16 +10,31 @@ A Chrome extension that tracks specified content on a webpage in real-time and s
 - **Customizable Tracking**: Users can input their own text to track.
 
 ## **Installation**
+
+### **Method 1: Clone the Repository**
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-username/content-tracker-extension.git
+   git clone https://github.com/aakashdinkarh/content-tracker.git
    ```
 2. **Go to Chrome Extensions**:
-   1. Open Chrome and go to `chrome://extensions/`.
+   1. Open Chrome and navigate to `chrome://extensions/`.
    2. Enable **Developer mode** (toggle in the top-right corner).
    3. Click **Load unpacked** and select the folder where you cloned the repository.
 
-3. **Start Tracking**:
+### **Method 2: Install from ZIP File**
+1. **Download the ZIP file**:
+   1. Go to the [repository page](https://github.com/aakashdinkarh/content-tracker).
+   2. Click on the **Code** button and select **Download ZIP**.
+   
+2. **Extract the ZIP**:
+   - Extract the downloaded ZIP file to a directory on your computer.
+
+3. **Go to Chrome Extensions**:
+   1. Open Chrome and navigate to `chrome://extensions/`.
+   2. Enable **Developer mode** (toggle in the top-right corner).
+   3. Click **Load unpacked** and select the folder where you extracted the ZIP file.
+
+## **Start Tracking**:
    - Click on the extension icon in your browser.
    - Enter the content you want to track in the input field and click **Start Tracking**.
 
