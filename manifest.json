@@ -3,16 +3,34 @@
 	"name": "Content Tracker",
 	"version": "1.0",
 	"permissions": ["tabs", "notifications", "storage", "scripting", "webNavigation"],
-	"description": "Input the text to track, click 'Start Tracking', and you’ll receive a notification when the content appears on the page.",
+	"description": "Input the text to track, click 'Start Tracking', and you'll receive a notification when the content appears on the page.",
 	"background": {
-		"service_worker": "background.js"
+		"service_worker": "scripts/serviceWorker/background.js"
 	},
 	"action": {
-		"default_popup": "popup.html"
+		"default_popup": "popup.html",
+		"default_icon": {
+			"16": "images/logo_16.png",
+			"32": "images/logo_32.png",
+			"48": "images/logo_48.png",
+			"128": "images/logo_128.png"
+		},
+		"disabled_icon": {
+			"16": "images/logo-disabled_16.png",
+			"32": "images/logo-disabled_32.png",
+			"48": "images/logo-disabled_48.png",
+			"128": "images/logo-disabled_128.png"
+		}
+	},
+	"icons": {
+		"16": "images/logo_16.png",
+		"32": "images/logo_32.png",
+		"48": "images/logo_48.png",
+		"128": "images/logo_128.png"
 	},
 	"web_accessible_resources": [
 		{
-			"resources": ["long-drop.wav"],
+			"resources": ["sound/long-drop.wav"],
 			"matches": ["http://*/*", "https://*/*"]
 		}
 	],

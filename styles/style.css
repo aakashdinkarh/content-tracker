@@ -1,0 +1,79 @@
+body {
+	font-family: 'Roboto', sans-serif;
+	background-color: #f4f4f9;
+	color: #333;
+	padding: 20px;
+	margin: 0;
+	box-sizing: border-box;
+	min-width: 300px;
+}
+
+h2 {
+	text-align: center;
+	color: #4caf50;
+	margin-bottom: 20px;
+	font-size: 1.4rem;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+label {
+	font-size: 0.9rem;
+	font-weight: bold;
+	color: #333;
+	margin-bottom: 5px;
+}
+
+input {
+	padding: 10px;
+	font-size: 1rem;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+input[readonly] {
+	background-color: #e9ecef;
+	cursor: not-allowed;
+}
+
+button {
+	background-color: #4caf50;
+	color: white;
+	font-size: 1rem;
+	font-weight: bold;
+	padding: 10px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+button:hover {
+	background-color: #45a049;
+}
+
+#confirmationMessage {
+	display: none;
+	background-color: #2196f3; /* Blue color for success message */
+	color: white;
+	padding: 10px;
+	border-radius: 5px;
+	text-align: center;
+	margin-top: 15px;
+	font-weight: bold;
+}
+
+#stopTracking {
+	background-color: #f44336; /* Red color for stop button */
+	display: none; /* Hidden by default */
+}
+
+#stopTracking:hover {
+	background-color: #c62828;
+}

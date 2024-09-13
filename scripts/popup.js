@@ -87,7 +87,7 @@ function startObserving(targetText) {
 				// Send message to background script to show a notification
 				chrome.runtime.sendMessage({ action: 'notify', message: targetText });
 				
-				const audio = new Audio(chrome.runtime.getURL('long-drop.wav'));
+				const audio = new Audio(chrome.runtime.getURL('sound/long-drop.wav'));
 				audio.play();
 	
 				// Disconnect the observer after sending the notification
@@ -103,7 +103,7 @@ function startObserving(targetText) {
 		// Initial check in case content is already present
 		if (document.body.innerText.includes(targetText)) {
 			chrome.runtime.sendMessage({ action: 'notify', message: targetText });
-			const audio = new Audio(chrome.runtime.getURL('long-drop.wav'));
+			const audio = new Audio(chrome.runtime.getURL('sound/long-drop.wav'));
 			audio.play();
 			stopObserving(); // Disconnect immediately if content is already present
 		}
