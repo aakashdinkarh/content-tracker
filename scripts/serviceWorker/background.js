@@ -17,7 +17,7 @@
 chrome.webNavigation.onCommitted.addListener((details) => {
 	if (details.frameId === 0) {
 		// Clear observer status when the main frame is reloaded
-		chrome.storage.local.remove('targetText');
+		// chrome.storage.local.remove('targetText');
 	}
 });
 

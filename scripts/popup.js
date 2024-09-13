@@ -4,23 +4,58 @@ const runAsyncQuery = (queryFunc) => {
 	})
 }
 
+const executeScriptAsync = ({ tabId, func, args }) => {
+	return new Promise((resolve, reject) => {
+		chrome.scripting.executeScript(
+			{
+				target: { tabId },
+				func,
+				args,
+			},
+			(results) => {
+				if (chrome.runtime.lastError) {
+					reject(chrome.runtime.lastError);
+				} else {
+					resolve(results);
+				}
+			}
+		);
+	});
+};
+
+const getClientWindowProperty = async (tab, property) => {
+	try {
+		const results = await executeScriptAsync({
+			tabId: tab.id,
+			func: (property) => window[property],
+			args: [property],
+		});
+		return results[0].result;
+	} catch {
+		return null;
+	}
+}
+
+function showErrorUI(errorMessage) {
+	// Show the error UI and hide the regular form
+	trackerForm.style.display = 'none';
+	errorContainer.style.display = 'block';
+	errorMessagePlaceholder.textContent = errorMessage;
+}
+
 (async () => {
 	const NOT_ALLOWED_PROTOCOLS = ['chrome:', 'file:', 'about:', 'view-source:'];
+	const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
 	let isAllowed = true;
 	let errorMessage = '';
 	try {
 		const result = await runAsyncQuery((res, rej) => {
-			chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-				if (NOT_ALLOWED_PROTOCOLS.includes(new URL(tabs[0].url).protocol)) {
-					rej({
-						allowed: false,
-						message: "Cannot execute script on this page: " + tabs[0].url,
-					});
-				} else {
-					res({ allowed: true });
-				}
-			});
+			if (NOT_ALLOWED_PROTOCOLS.includes(new URL(tab.url).protocol)) {
+				rej({ allowed: false, message: "Cannot execute script on this page: " + tab.url });
+			} else {
+				res({ allowed: true });
+			}
 		});
 		isAllowed = result.allowed;
 	} catch (error) {
@@ -28,38 +63,35 @@ const runAsyncQuery = (queryFunc) => {
 		errorMessage = error.message || 'Something went wrong!';
 	}
 
+	window.storedTargetText = await getClientWindowProperty(tab, 'storedTargetText');
+
 	if (!isAllowed) {
-		function showErrorUI() {
-			// Show the error UI and hide the regular form
-			trackerForm.style.display = 'none';
-			errorContainer.style.display = 'block';
-			errorMessagePlaceholder.textContent = errorMessage;
-		}
-		showErrorUI();
+		showErrorUI(errorMessage);
 		return;
 	}
 
 	handleTrackerForm();
 
-	document.addEventListener('DOMContentLoaded', () => {
-		chrome.storage.local.get('targetText', (result) => {
-			const targetText = result.targetText;
-			const targetInput = document.getElementById('targetText');
-			const startButton = document.getElementById('startTracking');
-			const stopButton = document.getElementById('stopTracking');
-	
-			if (targetText) {
-				// If there is already a target text, set the input field as read-only and show stop button
-				targetInput.value = targetText;
-				targetInput.readOnly = true;
-				startButton.style.display = 'none'; // Hide start button
-				stopButton.style.display = 'block'; // Show stop button
-			} else {
-				// If no target text, show the start button
-				targetInput.readOnly = false;
-				startButton.style.display = 'block';
-				stopButton.style.display = 'none';
-			}
-		});
-	});
+	try {
+		const storedTargetText = window.storedTargetText;
+		const targetInput = document.getElementById('targetText');
+		const startButton = document.getElementById('startTracking');
+		const stopButton = document.getElementById('stopTracking');
+
+		if (storedTargetText) {
+			// If there is already a target text, set the input field as read-only and show stop button
+			targetInput.value = storedTargetText;
+			targetInput.readOnly = true;
+			startButton.style.display = 'none'; // Hide start button
+			stopButton.style.display = 'block'; // Show stop button
+		} else {
+			// If no target text, show the start button
+			targetInput.readOnly = false;
+			startButton.style.display = 'block';
+			stopButton.style.display = 'none';
+		}
+	} catch (error) {
+		errorMessage = error.message || 'Something went wrong!';
+		showErrorUI(errorMessage);
+	}
 })();
