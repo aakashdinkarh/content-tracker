@@ -3,7 +3,7 @@
 	"name": "Content Tracker",
 	"version": "1.0",
 	"permissions": ["tabs", "notifications", "storage", "scripting", "webNavigation"],
-	"description": "Input the text to track, click 'Start Tracking', and you'll receive a notification when the content appears on the page.",
+	"description": "Make sure you have enabled notification from chrome on your device. Input the text, click 'Start Tracking', that's all to get a notification.",
 	"background": {
 		"service_worker": "scripts/serviceWorker/background.js"
 	},
