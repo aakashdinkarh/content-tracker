@@ -16,7 +16,8 @@ const handleTrackerForm = () => {
         // Store the target text
         chrome.storage.local.set({ targetText: targetText }, () => {
             const confirmationMessage = document.getElementById('confirmationMessage');
-            confirmationMessage.textContent = `Tracking started for: "${targetText}"`;
+            const trackingText = document.getElementById('trackingText');
+            trackingText.textContent = targetText;
             confirmationMessage.style.display = 'block';
     
             setTimeout(() => {

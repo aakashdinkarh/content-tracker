@@ -1,5 +1,5 @@
 body {
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Poppins', sans-serif;
 	background-color: #f4f4f9;
 	color: #333;
 	padding: 20px;
@@ -10,9 +10,9 @@ body {
 
 h2 {
 	text-align: center;
-	color: #4caf50;
+	color: #9f2089;
 	margin-bottom: 20px;
-	font-size: 1.4rem;
+	font-size: 20px;
 }
 
 .container {
@@ -31,7 +31,7 @@ label {
 input {
 	padding: 10px;
 	font-size: 1rem;
-	border: 1px solid #ccc;
+	border: 1px solid #dedede;
 	border-radius: 5px;
 	width: 100%;
 	box-sizing: border-box;
@@ -42,8 +42,13 @@ input[readonly] {
 	cursor: not-allowed;
 }
 
+input:focus {
+	outline: none;
+	border-color: #9f2089;
+}
+
 button {
-	background-color: #4caf50;
+	background-color: #9f2089;
 	color: white;
 	font-size: 1rem;
 	font-weight: bold;
@@ -55,23 +60,25 @@ button {
 }
 
 button:hover {
-	background-color: #45a049;
+	background-color: #9f2089;
 }
 
 #confirmationMessage {
 	display: none;
-	background-color: #2196f3; /* Blue color for success message */
-	color: white;
+	color: #616173;
+	background-color: white;
 	padding: 10px;
-	border-radius: 5px;
-	text-align: center;
 	margin-top: 15px;
-	font-weight: bold;
+	font-size: 11px;
+}
+#trackingText {
+	font-size: 14px;
+	color: #333;
 }
 
 #stopTracking {
-	background-color: #f44336; /* Red color for stop button */
-	display: none; /* Hidden by default */
+	background-color: #f44336;
+	display: none;
 }
 
 #stopTracking:hover {
@@ -84,7 +91,7 @@ button:hover {
 	padding: 10px;
 	border-radius: 5px;
 	text-align: center;
-	display: none; /* Initially hidden */
+	display: none;
 }
 .hidden {
 	display: none;
