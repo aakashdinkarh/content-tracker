@@ -30,7 +30,7 @@ chrome.runtime.onMessage.addListener((request, sender) => {
 		// Create a notification to alert the user
 		chrome.notifications.create({
 			type: 'basic',
-			iconUrl: 'images/bell-icon.png',
+			iconUrl: chrome.runtime.getURL('images/bell-icon.png'),
 			title: 'Content Alert!',
 			message: `The content "${request.message}" has appeared!`,
 			requireInteraction: true, // Keeps the notification active until clicked/dismissed
