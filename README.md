@@ -46,6 +46,20 @@ A Chrome extension that tracks specified content on a webpage in real-time and s
    - Clicking the notification will bring focus to the corresponding tab.
    - A sound alert will also be played (if enabled).
 
+## **Screenshots**
+#### UI For Extension
+<img width="304" alt="Screenshot 2024-09-14 at 3 11 13 AM" src="https://github.com/user-attachments/assets/15631277-238a-4496-9876-09183ab27677">
+
+#### When text added to track
+<img width="302" alt="Screenshot 2024-09-14 at 4 06 17 AM" src="https://github.com/user-attachments/assets/949208d5-d54b-47c3-bb5e-aef1023b636d">
+
+#### When user opens the popup again after adding the text to track, without refreshing and the content has not appeared yet
+<img width="302" alt="Screenshot 2024-09-14 at 4 08 02 AM" src="https://github.com/user-attachments/assets/146a04a2-a4d6-411d-ae80-6bd73d144caf">
+
+#### Fallback/Error/Not Supported Page -
+<img width="306" alt="Screenshot 2024-09-14 at 3 08 29 AM" src="https://github.com/user-attachments/assets/b9c8a265-f4e7-4a6d-a7cc-9a7a3fcafcd9">
+
+
 ## **Permissions**
 The extension requests the following permissions:
 - **Storage**: To store the user’s tracking preferences.

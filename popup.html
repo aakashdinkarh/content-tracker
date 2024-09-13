@@ -4,89 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Content Tracker</title>
-  <style>
-    body {
-      font-family: 'Roboto', sans-serif;
-      background-color: #f4f4f9;
-      color: #333;
-      padding: 20px;
-      margin: 0;
-      box-sizing: border-box;
-      min-width: 300px;
-    }
-
-    h2 {
-      text-align: center;
-      color: #4CAF50;
-      margin-bottom: 20px;
-      font-size: 1.4rem;
-    }
-
-    .container {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    label {
-      font-size: 0.9rem;
-      font-weight: bold;
-      color: #333;
-      margin-bottom: 5px;
-    }
-
-    input {
-      padding: 10px;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    input[readonly] {
-      background-color: #e9ecef;
-      cursor: not-allowed;
-    }
-
-    button {
-      background-color: #4CAF50;
-      color: white;
-      font-size: 1rem;
-      font-weight: bold;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    button:hover {
-      background-color: #45a049;
-    }
-
-    #confirmationMessage {
-      display: none;
-      background-color: #2196F3; /* Blue color for success message */
-      color: white;
-      padding: 10px;
-      border-radius: 5px;
-      text-align: center;
-      margin-top: 15px;
-      font-weight: bold;
-    }
-
-    #stopTracking {
-      background-color: #f44336; /* Red color for stop button */
-      display: none; /* Hidden by default */
-    }
-
-    #stopTracking:hover {
-      background-color: #c62828;
-    }
-  </style>
+  <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
+  <!-- Regular page content -->
   <h2>Content Tracker</h2>
   <form id="trackerForm">
     <div class="container">
@@ -95,9 +16,20 @@
       <button type="submit" id="startTracking">Start Tracking</button>
       <button type="button" id="stopTracking">Stop Tracking</button>
     </div>
-    <div id="confirmationMessage"></div>
+    <div id="confirmationMessage">
+      Tracking started for
+      <div id="trackingText"></div>
+    </div>
   </form>
 
-  <script src="popup.js"></script>
+  <!-- Fallback error UI -->
+  <div id="errorContainer" class="error-message">
+    <h3>Extension Disabled</h3>
+    <p>The extension cannot be used on this page.</p>
+    <p id="errorMessagePlaceholder" ></p>
+  </div>
+
+  <script src="scripts/tackerForm.js" ></script>
+  <script src="scripts/popup.js"></script>
 </body>
 </html>

@@ -1,0 +1,98 @@
+body {
+	font-family: 'Poppins', sans-serif;
+	background-color: #f4f4f9;
+	color: #333;
+	padding: 20px;
+	margin: 0;
+	box-sizing: border-box;
+	min-width: 300px;
+}
+
+h2 {
+	text-align: center;
+	color: #9f2089;
+	margin-bottom: 20px;
+	font-size: 20px;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+label {
+	font-size: 0.9rem;
+	font-weight: bold;
+	color: #333;
+	margin-bottom: 5px;
+}
+
+input {
+	padding: 10px;
+	font-size: 1rem;
+	border: 1px solid #dedede;
+	border-radius: 5px;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+input[readonly] {
+	background-color: #e9ecef;
+	cursor: not-allowed;
+}
+
+input:focus {
+	outline: none;
+	border-color: #9f2089;
+}
+
+button {
+	background-color: #9f2089;
+	color: white;
+	font-size: 1rem;
+	font-weight: bold;
+	padding: 10px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+button:hover {
+	background-color: #9f2089;
+}
+
+#confirmationMessage {
+	display: none;
+	color: #616173;
+	background-color: white;
+	padding: 10px;
+	margin-top: 15px;
+	font-size: 11px;
+}
+#trackingText {
+	font-size: 14px;
+	color: #333;
+}
+
+#stopTracking {
+	background-color: #f44336;
+	display: none;
+}
+
+#stopTracking:hover {
+	background-color: #c62828;
+}
+
+.error-message {
+	color: red;
+	background-color: #ffe6e6;
+	padding: 10px;
+	border-radius: 5px;
+	text-align: center;
+	display: none;
+}
+.hidden {
+	display: none;
+}
