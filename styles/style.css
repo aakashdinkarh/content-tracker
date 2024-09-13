@@ -77,3 +77,15 @@ button:hover {
 #stopTracking:hover {
 	background-color: #c62828;
 }
+
+.error-message {
+	color: red;
+	background-color: #ffe6e6;
+	padding: 10px;
+	border-radius: 5px;
+	text-align: center;
+	display: none; /* Initially hidden */
+}
+.hidden {
+	display: none;
+}

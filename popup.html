@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
+  <!-- Regular page content -->
   <h2>Content Tracker</h2>
   <form id="trackerForm">
     <div class="container">
@@ -18,6 +19,14 @@
     <div id="confirmationMessage"></div>
   </form>
 
+  <!-- Fallback error UI -->
+  <div id="errorContainer" class="error-message">
+    <h3>Extension Disabled</h3>
+    <p>The extension cannot be used on this page.</p>
+    <p id="errorMessagePlaceholder" ></p>
+  </div>
+
+  <script src="scripts/tackerForm.js" ></script>
   <script src="scripts/popup.js"></script>
 </body>
 </html>

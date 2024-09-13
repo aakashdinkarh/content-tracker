@@ -1,111 +1,65 @@
-document.addEventListener('DOMContentLoaded', () => {
-	chrome.storage.local.get('targetText', (result) => {
-	  const targetText = result.targetText;
-	  const targetInput = document.getElementById('targetText');
-	  const startButton = document.getElementById('startTracking');
-	  const stopButton = document.getElementById('stopTracking');
-  
-	  if (targetText) {
-		// If there is already a target text, set the input field as read-only and show stop button
-		targetInput.value = targetText;
-		targetInput.readOnly = true;
-		startButton.style.display = 'none'; // Hide start button
-		stopButton.style.display = 'block'; // Show stop button
-	  } else {
-		// If no target text, show the start button
-		targetInput.readOnly = false;
-		startButton.style.display = 'block';
-		stopButton.style.display = 'none';
-	  }
-	});
-  });
+const runAsyncQuery = (queryFunc) => {
+	return new Promise((res, rej) => {
+		queryFunc(res, rej);
+	})
+}
 
-document.getElementById('trackerForm').addEventListener('submit', (event) => {
-	event.preventDefault();
+(async () => {
+	const NOT_ALLOWED_PROTOCOLS = ['chrome:', 'file:', 'about:', 'view-source:'];
 
-	const targetText = document.getElementById('targetText').value;
-
-	// Notify content script to start tracking
-	chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-		chrome.scripting.executeScript({
-			target: { tabId: tabs[0].id },
-			func: startObserving,
-			args: [targetText],
-		});
-	});
-
-	// Store the target text
-	chrome.storage.local.set({ targetText: targetText }, () => {
-		const confirmationMessage = document.getElementById('confirmationMessage');
-		confirmationMessage.textContent = `Tracking started for: "${targetText}"`;
-		confirmationMessage.style.display = 'block';
-
-		setTimeout(() => {
-			window.close();
-		}, 2000);
-	});
-});
-
-document.getElementById('stopTracking').addEventListener('click', () => {
-	chrome.storage.local.remove('targetText', () => {
-		chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-			chrome.scripting.executeScript({
-				target: { tabId: tabs[0].id },
-				func: () => {
-					if (window.contentObserver) {
-						window.contentObserver.disconnect();
-						window.contentObserver = null; // Clear observer reference
-					}
-				},
+	let isAllowed = true;
+	let errorMessage = '';
+	try {
+		const result = await runAsyncQuery((res, rej) => {
+			chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+				if (NOT_ALLOWED_PROTOCOLS.includes(new URL(tabs[0].url).protocol)) {
+					rej({
+						allowed: false,
+						message: "Cannot execute script on this page: " + tabs[0].url,
+					});
+				} else {
+					res({ allowed: true });
+				}
 			});
 		});
-		document.getElementById('targetText').value = '';
-		document.getElementById('targetText').readOnly = false;
-		document.getElementById('startTracking').style.display = 'block';
-		document.getElementById('stopTracking').style.display = 'none';
-	});
-});
-
-// Function to be called in the context of client from popup action button
-function startObserving(targetText) {
-	window.contentObserver = null;
-
-	function stopObserving() {
-		if (window.contentObserver) {
-			window.contentObserver.disconnect();
-			window.contentObserver = null; // Clear observer reference
-			chrome.storage.local.remove('targetText');
-		}
+		isAllowed = result.allowed;
+	} catch (error) {
+		isAllowed = false;
+		errorMessage = error.message || 'Something went wrong!';
 	}
 
-	(() => {
-		stopObserving();
+	if (!isAllowed) {
+		function showErrorUI() {
+			// Show the error UI and hide the regular form
+			trackerForm.style.display = 'none';
+			errorContainer.style.display = 'block';
+			errorMessagePlaceholder.textContent = errorMessage;
+		}
+		showErrorUI();
+		return;
+	}
+
+	handleTrackerForm();
+
+	document.addEventListener('DOMContentLoaded', () => {
+		chrome.storage.local.get('targetText', (result) => {
+			const targetText = result.targetText;
+			const targetInput = document.getElementById('targetText');
+			const startButton = document.getElementById('startTracking');
+			const stopButton = document.getElementById('stopTracking');
 	
-		// Create a new MutationObserver
-		window.contentObserver = new MutationObserver(() => {
-			if (document.body.innerText.includes(targetText)) {
-				// Send message to background script to show a notification
-				chrome.runtime.sendMessage({ action: 'notify', message: targetText });
-				
-				const audio = new Audio(chrome.runtime.getURL('sound/long-drop.wav'));
-				audio.play();
-	
-				// Disconnect the observer after sending the notification
-				stopObserving();
+			if (targetText) {
+				// If there is already a target text, set the input field as read-only and show stop button
+				targetInput.value = targetText;
+				targetInput.readOnly = true;
+				startButton.style.display = 'none'; // Hide start button
+				stopButton.style.display = 'block'; // Show stop button
+			} else {
+				// If no target text, show the start button
+				targetInput.readOnly = false;
+				startButton.style.display = 'block';
+				stopButton.style.display = 'none';
 			}
 		});
-	
-		window.contentObserver.observe(document.body, {
-			childList: true,
-			subtree: true,
-		});
-	
-		// Initial check in case content is already present
-		if (document.body.innerText.includes(targetText)) {
-			chrome.runtime.sendMessage({ action: 'notify', message: targetText });
-			const audio = new Audio(chrome.runtime.getURL('sound/long-drop.wav'));
-			audio.play();
-			stopObserving(); // Disconnect immediately if content is already present
-		}
-	})();
-}
+	});
+})();
