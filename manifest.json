@@ -3,7 +3,7 @@
 	"name": "Content Tracker",
 	"version": "1.0",
 	"permissions": ["tabs", "notifications", "storage", "scripting", "webNavigation"],
-	"description": "Input the text to track, click 'Start Tracking', and you’ll receive a notification when the content appears on the page."
+	"description": "Input the text to track, click 'Start Tracking', and you’ll receive a notification when the content appears on the page.",
 	"background": {
 		"service_worker": "background.js"
 	},
