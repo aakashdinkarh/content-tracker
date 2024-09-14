@@ -61,16 +61,19 @@ A Chrome extension that tracks specified content on a webpage in real-time and s
 
 ## **Screenshots**
 #### UI For Extension
-<img width="304" alt="Screenshot 2024-09-14 at 3 11 13 AM" src="https://github.com/user-attachments/assets/15631277-238a-4496-9876-09183ab27677">
+<img width="302" alt="Screenshot 2024-09-14 at 10 13 15 PM" src="https://github.com/user-attachments/assets/41cf28f4-62bf-4c57-af94-a19b4c1288fc">
 
 #### When text added to track
-<img width="302" alt="Screenshot 2024-09-14 at 4 06 17 AM" src="https://github.com/user-attachments/assets/949208d5-d54b-47c3-bb5e-aef1023b636d">
+<img width="304" alt="Screenshot 2024-09-14 at 10 12 11 PM" src="https://github.com/user-attachments/assets/bde0e13a-727d-4d04-9187-14c26e394d3b">
 
 #### When user opens the popup again after adding the text to track, without refreshing and the content has not appeared yet
-<img width="302" alt="Screenshot 2024-09-14 at 4 08 02 AM" src="https://github.com/user-attachments/assets/146a04a2-a4d6-411d-ae80-6bd73d144caf">
+<img width="302" alt="Screenshot 2024-09-14 at 10 08 47 PM" src="https://github.com/user-attachments/assets/655c76ef-e36f-4693-9b9a-fe51454ac196">
 
 #### Fallback/Error/Not Supported Page -
-<img width="306" alt="Screenshot 2024-09-14 at 3 08 29 AM" src="https://github.com/user-attachments/assets/b9c8a265-f4e7-4a6d-a7cc-9a7a3fcafcd9">
+<img width="302" alt="Screenshot 2024-09-14 at 10 15 46 PM" src="https://github.com/user-attachments/assets/75b6f63b-04ee-4f66-916e-cd769530922c">
+
+#### Notification From Chrome -
+<img width="367" alt="Screenshot 2024-09-14 at 10 12 39 PM" src="https://github.com/user-attachments/assets/988206d9-c98b-4ee8-a5b2-cc108d40d828">
 
 
 ## **Permissions**
