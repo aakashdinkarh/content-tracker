@@ -45,11 +45,11 @@ A Chrome extension that tracks specified content on a webpage in real-time and s
 2. **One-Time Tracking**:
    - Tracks once per activation. Stops after detecting the content.
 
-3. **Page-Specific**:
-   - Only tracks the current page. Other pages are not affected.
-
-4. **Independent Tracking**:
+3. **Independent Tracking**:
    - Track separately on each page. Each page’s tracker works independently.
+
+4. **Chrome Notification**:
+   - Ensure that Chrome notifications are enabled on your device for this to work.
 
 ## **Usage**
 1. Open a webpage where you'd like to monitor content.

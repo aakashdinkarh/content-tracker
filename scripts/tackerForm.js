@@ -66,7 +66,7 @@ const handleTrackerForm = () => {
 					// Send message to background script to show a notification
 					chrome.runtime.sendMessage({ action: 'notify', message: storedTargetText });
 
-					const audio = new Audio(chrome.runtime.getURL('sound/long-drop.wav'));
+					const audio = new Audio(chrome.runtime.getURL('sound/notification.wav'));
 					audio.play();
 
 					// Disconnect the observer after sending the notification
@@ -82,7 +82,7 @@ const handleTrackerForm = () => {
 			// Initial check in case content is already present
 			if (document.body.innerText.includes(storedTargetText)) {
 				chrome.runtime.sendMessage({ action: 'notify', message: storedTargetText });
-				const audio = new Audio(chrome.runtime.getURL('sound/long-drop.wav'));
+				const audio = new Audio(chrome.runtime.getURL('sound/notification.wav'));
 				audio.play();
 				stopObserving(); // Disconnect immediately if content is already present
 			}

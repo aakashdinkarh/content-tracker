@@ -30,7 +30,7 @@
 	},
 	"web_accessible_resources": [
 		{
-			"resources": ["sound/long-drop.wav"],
+			"resources": ["sound/notification.wav"],
 			"matches": ["http://*/*", "https://*/*"]
 		}
 	],
