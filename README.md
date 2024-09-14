@@ -38,6 +38,19 @@ A Chrome extension that tracks specified content on a webpage in real-time and s
    - Click on the extension icon in your browser.
    - Enter the content you want to track in the input field and click **Start Tracking**.
 
+## **Important Behaviors**
+1. **Tracker Stops on Refresh**:
+   - Tracking stops if you refresh the page. Restart it to continue.
+
+2. **One-Time Tracking**:
+   - Tracks once per activation. Stops after detecting the content.
+
+3. **Page-Specific**:
+   - Only tracks the current page. Other pages are not affected.
+
+4. **Independent Tracking**:
+   - Track separately on each page. Each page’s tracker works independently.
+
 ## **Usage**
 1. Open a webpage where you'd like to monitor content.
 2. Enter the text you'd like to track in the extension popup.
