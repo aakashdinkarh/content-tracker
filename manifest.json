@@ -2,7 +2,7 @@
 	"manifest_version": 3,
 	"name": "Content Tracker",
 	"version": "1.0",
-	"permissions": ["tabs", "notifications", "storage", "scripting", "webNavigation"],
+	"permissions": ["tabs", "notifications", "scripting"],
 	"description": "Make sure you have enabled notification from chrome on your device. Input the text, click 'Start Tracking', that's all to get a notification.",
 	"background": {
 		"service_worker": "scripts/serviceWorker/background.js"

@@ -14,13 +14,6 @@
 	});
 })();
 
-chrome.webNavigation.onCommitted.addListener((details) => {
-	if (details.frameId === 0) {
-		// Clear observer status when the main frame is reloaded
-		// chrome.storage.local.remove('targetText');
-	}
-});
-
 let lastNotifiedTabId = null; // Store the tab ID for the notification
 chrome.runtime.onMessage.addListener((request, sender) => {
 	if (request.action === 'notify') {

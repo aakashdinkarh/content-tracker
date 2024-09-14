@@ -51,6 +51,9 @@ A Chrome extension that tracks specified content on a webpage in real-time and s
 4. **Chrome Notification**:
    - Ensure that Chrome notifications are enabled on your device for this to work.
 
+5. **Page-Specific**:
+   - Only tracks the current page. Other pages are not affected.
+
 ## **Usage**
 1. Open a webpage where you'd like to monitor content.
 2. Enter the text you'd like to track in the extension popup.
@@ -78,8 +81,7 @@ A Chrome extension that tracks specified content on a webpage in real-time and s
 
 ## **Permissions**
 The extension requests the following permissions:
-- **Storage**: To store the user’s tracking preferences.
-- **Active Tab**: To execute tracking scripts on the active webpage.
+- **Scripting**: To start a Mutation Observer on client content.
 - **Notifications**: To display notifications when tracked content appears.
 
 ## **How It Works**
