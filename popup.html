@@ -5,10 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Content Tracker</title>
   <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="styles/popover.css">
 </head>
 <body>
   <!-- Regular page content -->
-  <h2>Content Tracker</h2>
+  <h2>Content Tracker
+    <span class="info-icon" id="infoIcon">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/><path stroke="currentColor" stroke-width="2" d="M12 6v8"/><circle cx="12" cy="17.5" r="1" fill="currentColor"/></svg>
+    </span>
+  </h2>
+
+  <!-- Popover for important info -->
+  <div class="popover" id="infoPopover">
+    <div class="popover-arrow"></div>
+    <div class="popover-header">Important Behaviors</div>
+    <div class="popover-content">
+      <ul>
+        <li>Tracking stops if you refresh the page. Restart it to continue.</li>
+        <li>Tracks once per activation. Stops after detecting the content.</li>
+        <li>Only tracks the current page. Other pages are not affected.</li>
+        <li>Track separately on each page. Each page's tracker works independently.</li>
+      </ul>
+    </div>
+  </div>
+
   <form id="trackerForm">
     <div class="container">
       <label for="targetText">Track content:</label>
@@ -26,10 +46,11 @@
   <div id="errorContainer" class="error-message">
     <h3>Extension Disabled</h3>
     <p>The extension cannot be used on this page.</p>
-    <p id="errorMessagePlaceholder" ></p>
+    <p id="errorMessagePlaceholder"></p>
   </div>
 
-  <script src="scripts/tackerForm.js" ></script>
+  <script src="scripts/tackerForm.js"></script>
   <script src="scripts/popup.js"></script>
+  <script src="scripts/popover.js" ></script>
 </body>
 </html>
