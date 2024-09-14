@@ -7,6 +7,13 @@
 	"background": {
 		"service_worker": "scripts/serviceWorker/background.js"
 	},
+	"content_scripts": [
+		{
+		  "matches": ["http://*/*", "https://*/*"],
+		  "js": ["scripts/contentScripts/utils.js", "scripts/contentScripts/startObserving.js"],
+		  "run_at": "document_start"
+		}
+	],
 	"action": {
 		"default_popup": "popup.html",
 		"default_icon": {
