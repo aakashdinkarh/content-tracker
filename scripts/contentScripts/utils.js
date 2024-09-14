@@ -10,7 +10,7 @@
  * @param {number} [debounceInterval=500] - The time (in milliseconds) to wait after the last call before invoking the function.
  * @returns {Function} A new function that combines throttling and debouncing.
  */
-function throttleDebounce(fn, throttleInterval = 0, debounceInterval = 0) {
+function throttleDebounce(fn, throttleInterval = 800, debounceInterval = 800) {
 	let lastCallTime = 0;
 	let timeoutId = null;
 	let lastArgs = null;
