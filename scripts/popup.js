@@ -25,7 +25,7 @@ function showErrorUI(errorMessage) {
 		errorMessage = error.message || 'Something went wrong!';
 	}
 
-	window.storedTargetText = await getClientWindowProperty(tab, 'storedTargetText');
+	[window.storedTargetText, window.storedCaseSensitive] = await getClientWindowProperty(tab, ['storedTargetText', 'storedCaseSensitive']);
 
 	if (!isAllowed) {
 		showErrorUI(errorMessage);
@@ -36,19 +36,24 @@ function showErrorUI(errorMessage) {
 
 	try {
 		const storedTargetText = window.storedTargetText;
+		const storedCaseSensitive = window.storedCaseSensitive ?? false;
 		const targetInput = document.getElementById('targetText');
+		const caseSensitive = document.getElementById('caseSensitive');
 		const startButton = document.getElementById('startTracking');
 		const stopButton = document.getElementById('stopTracking');
 
+		caseSensitive.checked = storedCaseSensitive;
 		if (storedTargetText) {
 			// If there is already a target text, set the input field as read-only and show stop button
 			targetInput.value = storedTargetText;
 			targetInput.readOnly = true;
+			caseSensitive.disabled = true;
 			startButton.style.display = 'none'; // Hide start button
 			stopButton.style.display = 'block'; // Show stop button
 		} else {
 			// If no target text, show the start button
 			targetInput.readOnly = false;
+			caseSensitive.disabled = false;
 			startButton.style.display = 'block';
 			stopButton.style.display = 'none';
 		}

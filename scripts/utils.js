@@ -23,12 +23,12 @@ const executeScriptAsync = ({ tabId, func, args }) => {
 	});
 };
 
-const getClientWindowProperty = async (tab, property) => {
+const getClientWindowProperty = async (tab, properties = []) => {
 	try {
 		const results = await executeScriptAsync({
 			tabId: tab.id,
-			func: (property) => window[property],
-			args: [property],
+			func: (properties) => properties.map((property) => window[property]),
+			args: [properties],
 		});
 		return results[0].result;
 	} catch {

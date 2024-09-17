@@ -18,7 +18,7 @@ h2 {
 .container {
 	display: flex;
 	flex-direction: column;
-	gap: 15px;
+	gap: 10px;
 }
 
 label {
@@ -28,13 +28,22 @@ label {
 	margin-bottom: 5px;
 }
 
-input {
+input:not(input[type="checkbox"]) {
 	padding: 10px;
 	font-size: 1rem;
 	border: 1px solid #dedede;
 	border-radius: 5px;
 	width: 100%;
 	box-sizing: border-box;
+}
+
+.checkbox-container {
+	display: flex;
+	align-items: center;
+}
+
+input[type="checkbox"] {
+	margin: 0 8px 5px;
 }
 
 input[readonly] {
