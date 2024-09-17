@@ -7,7 +7,11 @@ function stopObserving() {
 }
 
 const checkTargetTextPresent = throttleDebounce(function() {
-    if (!document.body.innerText.includes(storedTargetText)) return;
+    if (storedCaseSensitive && !document.body.innerText.includes(storedTargetText)) {
+        return;
+    } else if (!document.body.innerText.toLowerCase().includes(storedTargetText.toLowerCase())) {
+        return;
+    }
 
     // Send message to background script to show a notification
     chrome.runtime.sendMessage({ action: 'notify', message: storedTargetText });
@@ -18,9 +22,10 @@ const checkTargetTextPresent = throttleDebounce(function() {
 });
 
 // Function to be called in the context of client from popup action button
-function startObserving(storedTargetText) {
+function startObserving(storedTargetText, storedCaseSensitive = false) {
     window.contentObserver = null;
     window.storedTargetText = storedTargetText;
+    window.storedCaseSensitive = storedCaseSensitive;
     stopObserving();
 
     // Create a new MutationObserver
@@ -37,6 +42,6 @@ function startObserving(storedTargetText) {
 
 chrome.runtime.onMessage.addListener((message) => {
     if (message.action === 'startTracking') {
-      startObserving(message.targetText);
+      startObserving(message.targetText, message.caseSensitive);
     }
 });
