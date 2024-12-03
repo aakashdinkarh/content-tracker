@@ -11,7 +11,10 @@ A Chrome extension that tracks specified content on a webpage in real-time and s
 
 ## **Installation**
 
-### **Method 1: Clone the Repository**
+### **Method 1: From Chrome Web Store**
+1. Search for 'Content Tracker' or open this [chrome web store link](https://chromewebstore.google.com/detail/content-tracker/jfmjdjbfofohakgmdmdhkajimjjplbna)
+
+### **Method 2: Clone the Repository**
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/aakashdinkarh/content-tracker.git
@@ -21,7 +24,7 @@ A Chrome extension that tracks specified content on a webpage in real-time and s
    2. Enable **Developer mode** (toggle in the top-right corner).
    3. Click **Load unpacked** and select the folder where you cloned the repository.
 
-### **Method 2: Install from ZIP File**
+### **Method 3: Install from ZIP File**
 1. **Download the ZIP file**:
    1. Go to the [repository page](https://github.com/aakashdinkarh/content-tracker).
    2. Click on the **Code** button and select **Download ZIP**.
